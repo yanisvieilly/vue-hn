@@ -1,5 +1,8 @@
 <template lang="pug">
-  <a :href="item.url">{{item.title}}</a>
+div
+  a.story-link(:href="item.url") {{item.title}}
+  span.story-metadata
+    | {{item.score}} points by {{item.by}} | {{item.descendants}} comments
 </template>
 
 <script>
@@ -26,3 +29,17 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.story-link {
+  color: #000;
+  display: block;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.story-metadata {
+  color: #828282;
+  font-size: 10px;
+}
+</style>

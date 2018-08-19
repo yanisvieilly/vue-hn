@@ -1,5 +1,6 @@
 <template lang="pug">
-ItemsList
+.container
+  ItemsList
 </template>
 
 <script>
@@ -11,3 +12,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.container {
+  background-color: #f6f6ef;
+  font-family: Verdana, Geneva, sans-serif;
+  margin: auto;
+  width: 900px;
+}
+</style>

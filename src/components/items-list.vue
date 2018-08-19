@@ -1,6 +1,6 @@
 <template lang="pug">
 ol
-  li(v-for="itemId in topStories")
+  li.item(v-for="itemId in topStories")
     Item(:id="itemId")
 </template>
 
@@ -24,3 +24,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.item {
+  margin-bottom: 4px;
+}
+</style>
