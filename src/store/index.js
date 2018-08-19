@@ -1,20 +1,35 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { fetchItems } from "../api/items";
+import { fetchTopStories, fetchItem } from "../api/items";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  state: {},
+  state: {
+    topStories: [],
+    items: {}
+  },
   mutations: {
-    createItems(state, data) {
-      state.items = data;
+    createTopStories(state, data) {
+      state.topStories = data;
+    },
+    createItem(state, data) {
+      state.items[data.id] = data;
     }
   },
+  getters: {
+    getItemById: state => id => state.items[id]
+  },
   actions: {
-    getItems({ commit }) {
-      fetchItems().then(data => commit("createItems", data));
+    getTopStories({ commit }) {
+      fetchTopStories().then(data => {
+        // Keep the 30 first items only, for the first page
+        commit("createTopStories", data.slice(0, 29));
+      });
+    },
+    getItem({ commit }, id) {
+      fetchItem(id).then(data => commit("createItem", data));
     }
   }
 });

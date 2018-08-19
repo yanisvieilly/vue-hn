@@ -1,21 +1,13 @@
 <template lang="pug">
-ul
-  li(v-for="item in items") {{item}}
+ItemsList
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import ItemsList from "./items-list";
 
 export default {
-  components: {},
-  computed: {
-    ...mapState(["items"])
-  },
-  created() {
-    this.getItems();
-  },
-  methods: {
-    ...mapActions(["getItems"])
+  components: {
+    ItemsList
   }
 };
 </script>
