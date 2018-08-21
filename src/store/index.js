@@ -15,7 +15,7 @@ const store = new Vuex.Store({
       state.topStories = data;
     },
     createItem(state, data) {
-      state.items[data.id] = data;
+      state.items = { ...state.items, [data.id]: data };
     }
   },
   getters: {
