@@ -29,7 +29,7 @@ const store = new Vuex.Store({
       });
     },
     getItem({ commit }, id) {
-      fetchItem(id).then(data => commit("createItem", data));
+      return fetchItem(id).then(data => commit("createItem", data));
     }
   }
 });
