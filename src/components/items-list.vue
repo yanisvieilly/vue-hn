@@ -14,7 +14,9 @@ export default {
     Item
   },
   computed: {
-    ...mapState(["topStories"])
+    ...mapState({
+      topStories: state => state.topStories.topStories
+    })
   },
   created() {
     this.getTopStories();
