@@ -14,8 +14,14 @@ const store = new Vuex.Store({
     createTopStories(state, data) {
       state.topStories = data;
     },
+    setItemStatus(state, { id, status }) {
+      state.items = { ...state.items, [id]: { ...state.items[id], status } };
+    },
     createItem(state, data) {
-      state.items = { ...state.items, [data.id]: data };
+      state.items = {
+        ...state.items,
+        [data.id]: { ...state.items[data.id], ...data }
+      };
     }
   },
   getters: {
@@ -29,7 +35,15 @@ const store = new Vuex.Store({
       });
     },
     getItem({ commit }, id) {
-      return fetchItem(id).then(data => commit("createItem", data));
+      commit("setItemStatus", { id, status: "LOADING" });
+      fetchItem(id)
+        .then(data => {
+          commit("setItemStatus", { id, status: "OK" });
+          commit("createItem", data);
+        })
+        .catch(() => {
+          commit("setItemStatus", { id, status: "ERROR" });
+        });
     }
   }
 });

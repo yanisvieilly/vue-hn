@@ -1,8 +1,8 @@
 <template lang="pug">
-div(v-if="loading")
+div(v-if="item.status === 'LOADING'")
   span.story-loading Loading story...
 
-div(v-else-if="error")
+div(v-else-if="item.status === 'ERROR'")
   span.story-error Something went wrong while fetching this story.
 
 div(v-else)
@@ -21,12 +21,6 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      loading: false,
-      error: false
-    };
-  },
   computed: {
     ...mapGetters(["getItemById"]),
     item() {
@@ -34,15 +28,7 @@ export default {
     }
   },
   created() {
-    this.loading = true;
-    this.getItem(this.id)
-      .then(() => {
-        this.loading = false;
-      })
-      .catch(() => {
-        this.loading = false;
-        this.error = true;
-      });
+    this.getItem(this.id);
   },
   methods: {
     ...mapActions(["getItem"])
